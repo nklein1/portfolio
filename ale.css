@@ -49,8 +49,12 @@ body {
 	text-align: center;
 }
 
-.branding { background: url(img/glo.png) repeat center center; }
-.second { background: #000 url(img/bg1.jpg) no-repeat fixed center bottom;  }
+.branding {
+    background: url(img/train.jpg) no-repeat fixed center center; 
+    background-size: cover;
+}
+/* .branding { background: url(img/train.jpg) repeat center center; } */
+.second { background: #000 url(img/bg.jpg) no-repeat fixed center bottom;  }
 /* .second { background: url(img/bg2.jpg) no-repeat fixed center bottom; } */
 .third {	background: #fff; }
 .fourth { background: #000; }
@@ -242,11 +246,11 @@ hr {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   font-size: 2em;
-	position: fixed;
+  position: fixed;
   margin: 5% auto;
   left: 0;
   right: 0;
-	z-index: -10;
+/*   z-index: -10; */
 }
 
 .sub-heading {
@@ -258,7 +262,7 @@ font-family: 'Open Sans',sans-serif;
     position: fixed;
     right: 0;
     bottom: 1em;
-    z-index: -10;
+/*     z-index: -10; */
 }
 
 .title {

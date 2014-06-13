@@ -54,8 +54,8 @@
                 <div class="container">
                     <div class="half">
                         <p class="title light left">At work...</p>
-                        <p class="profile light left">I'm a lead front-end web developer at <a href="http://daktaridx.com">Daktari Diagnostics</a>, a Gates Foundation-supported biomedical startup focused on revolutionizing the way HIV is treated in sub-Saharan Africa.</p>
-                        <p class="profile light left">Previously, I interned for <a target="_blank" href="http://vsnap.com">Vsnap</a>, a Boston-based startup focusing on B2B video messaging. At the end of my internship, I was hired as a UI design/development consultant during my final semester of college.</p>
+                        <p class="profile light left">I'm a lead front-end web developer at <a href="http://daktaridx.com" target="_blank">Daktari Diagnostics</a>, a Gates Foundation-supported biomedical startup focused on revolutionizing the way HIV is treated in sub-Saharan Africa.</p>
+                        <p class="profile light left">Previously, I interned for <a href="http://vsnap.com" target="_blank">Vsnap</a>, a Boston-based startup focusing on B2B video messaging. At the end of my internship, I was hired as a UI design/development consultant during my final semester of college.</p>
                         <p class="profile light left">You can find my resume <a href="docs/nklein_resume.pdf" target="_blank">here</a> (PDF)</p>
                     </div>
                     <div class="half">
@@ -69,12 +69,12 @@
             <div id="site" class="third slide">
                 <div class="container">
                     <div class="half">
-                        <p class="title dark right">I design & build...</p>
+                        <p class="title dark right">I design, build...</p>
                         <p class="profile dark right">...and here's an example of my work. I designed and built this site from scratch using photoshop and <a href="http://kate-editor.org/" target="_blank">my favorite text editor</a>. The typeface used is	<a target="_blank" href="http://google.com/webfonts/specimen/Open+Sans">Open Sans</a>. Each page strictly adheres to <a href="http://validator.w3.org/check/referer">HTML 5</a> and <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3">CSS 3</a> standards.</p>
                     </div>
                     <div class="half">
-                        <p class="title dark left">..and share</p>
-                        <p class="profile dark left">The code for this profile is freely available on github, go check it out!</p>
+                        <p class="title dark left">and share</p>
+                        <p class="profile dark left">The code for this profile is freely available on <a href="https://github.com/nklein1/portfolio" target="_blank">Github</a>, go check it out!</p>
                         <p class="profile dark left">© 2014 Nicholas Klein</p>
                     </div>
                 </div>
@@ -101,10 +101,31 @@
         <script>
             $(document).ready(function() {
                 getHype();
+                
                 $('#nav li a.scroll').on('click', scrollTo);
-                var heroheight = $("#nav").offset().top;
+                var navOffset = $('#nav').offset().top;
+                var elem = document.getElementById('nav');
+//                 console.log('elem.getBoundingClientRect()');
+//                 console.log(elem.getBoundingClientRect());
+//                 console.log(elem.getClientRects()[0]);
+//                 console.log(navOffset);
+                $(window).resize(function() {
+                    navOffset = $('#nav').offset().top;
+//                     console.log('elem.getBoundingClientRect()');
+//                     console.log(elem.getBoundingClientRect());
+//                     console.log(elem.getClientRects()[0]);
+//                     console.log(navOffset);
+                });
                 $(window).scroll(function() {
-                    if ($(window).scrollTop() >= heroheight) {
+//                         console.log('elem.getBoundingClientRect().top');
+//                         console.log(elem.getBoundingClientRect().top);
+//                     if (elem.getBoundingClientRect().top <= navOffset) {
+                    if (window.scrollY >= navOffset) {
+//                         console.log('=====================================');
+//                         console.log('elem.getBoundingClientRect()');
+//                         console.log(elem.getBoundingClientRect());
+//                         console.log(elem.getClientRects()[0]);
+//                     if ($(window).scrollTop() >= heroheight) {
                         $('#nav').attr('class', 'fixed');
                     } else {
                         $('#nav').attr('class', 'unfixed');
@@ -129,7 +150,7 @@
                     $.getJSON('http://hypem.com/playlist/loved/nklein1/json/1/data.js', function(data) {
                         var items = [];
                         $.each(data, function(key, val) {
-                            items.push('<li class="hype  pad-sm"><a href="http://hypem.com/track/' + val.siteid + '">' + val.artist + ' - ' + val.title + '</a></li>');
+                            items.push('<li class="hype pad-sm"><a href="http://hypem.com/track/' + val.mediaid + '">' + val.artist + ' - ' + val.title + '</a></li>');
                         });
                         items = items.slice(0, 3);
                         $('#hype').append(items.join(' '));

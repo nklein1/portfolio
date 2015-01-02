@@ -42,9 +42,15 @@
                 </ul>
             </div>
             <div id="home" class="first branding">
-                <p class="heading cntr">Nick Klein is a UX/UI developer, retired college radio DJ, & ballroom dancer.</p>
-                <p class="sub-heading light cntr">(scroll &#8595; to continue <!--&#8659;  &#8675;    &#9660;  &#11015; --> )</p>
+                <p id="pageTitle" class="heading cntr">
+                    Nick Klein is a 
+                    <span id="ticker">UX/UI developer</span>
+                </p>
                 
+                <!--
+                <p class="sub-heading light cntr">(scroll &#8595; to continue )</p>
+                -->
+                <!--&#8659;  &#8675;    &#9660;  &#11015; -->
                 <!-- <div class="container">
                     <div class="logo heading">	<span class="helper"></span>
                         <img src="img/logo.png" alt="Circle of doom" />
@@ -101,6 +107,8 @@
         <script>
             $(document).ready(function() {
                 getHype();
+                nameCalling();
+                fadeHeader();
                 
                 $('#nav li a.scroll').on('click', scrollTo);
                 var navOffset = $('#nav').offset().top;
@@ -154,6 +162,45 @@
                         });
                         items = items.slice(0, 3);
                         $('#hype').append(items.join(' '));
+                    });
+                }
+                
+                function nameCalling() {
+                    var count = 0;
+                    var names = [
+                        'UX/UI developer',
+                        'retired college radio DJ',
+                        'ballroom dancer'
+                    ];
+                    var elem = $('#ticker');
+                    setInterval(callName, 3000);
+                    function callName() {
+                        console.log(count);
+                        elem.text(names[count]);
+                        count++;
+                        if(count >= names.length) { count = 0; }
+                    }
+                }
+
+                function fadeHeader() {
+                    $(window).scroll(function() {
+                        var high = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                        var currpos = $(window).scrollTop();
+                        if (currpos < high/2.6) {
+                            $('#pageTitle').css('color','#000');
+                        } else if (currpos < high/2.5) {
+                            $('#pageTitle').css('color','#aaa');
+                        } else if (currpos < high/2.4) {
+                            $('#pageTitle').css('color','#bbb');
+                        } else if (currpos < high/2.3) {
+                            $('#pageTitle').css('color','#ccc');
+                        } else if (currpos < high/2.2) {
+                            $('#pageTitle').css('color','#ddd');
+                        } else if (currpos < high/2.1) {
+                            $('#pageTitle').css('color','#eee');
+                        } else if (currpos >= high/2) {
+                            $('#pageTitle').css('color','#fff');
+                        }
                     });
                 }
             });

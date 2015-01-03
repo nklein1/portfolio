@@ -90,29 +90,13 @@
                         <a href="https://github.com/nklein1" title="Github" target="_blank">Github</a>, & 
                         <a href="https://facebook.com/nklein" title="Facebook" target="_blank">Facebook</a>
                     </p>
-                    
-                    <!--
-                    <div class="half">
-                        <ul class="profile light right">
-                            <li class="pad-sm">You can send me an <a href="mailto:nklein1@gmail.com" title="Primary Email" target="_blank">email</a>, or connect with me on</li>
-                            <li class="pad-sm"><a href="https://linkedin.com/in/nklein1/" title="LinkedIn" target="_blank">LinkedIn</a></li>
-                            <li class="pad-sm"><a href="https://github.com/nklein1" title="Github" target="_blank">Github</a></li>
-                            <li class="pad-sm"><a href="https://facebook.com/nklein" title="Facebook" target="_blank">Facebook</a></li>
-                        </ul>
-                    </div>
-                    <div class="half">
-                        <ul id="hype" class="profile light">
-                            <li class="light pad-sm">Recently discovered music (via <a href="http://hypem.com/nklein1/">The Hype Machine</a>)</li>
-                        </ul>
-                    </div>
-                    -->
                 </div>
             </div>
         </div>
         <script>
             $(document).ready(function() {
                 //Variables
-                var doit;
+                var timer;
                 var navOffset;
                 var navElem = $('#nav');
                 var total = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -124,14 +108,12 @@
                 $(document).on('scroll', fadeTitle);
                 $(document).on('scroll', fixHeader);
                 $(window).resize(function() {
-                    clearTimeout(doit);
-                    doit = setTimeout(defineOffset, 100);
+                    clearTimeout(timer);
+                    timer = setTimeout(defineOffset, 100);
                 });
                 
                 //Functions
                 defineOffset();
-                //nameCalling();
-                //getHype();
                 function defineOffset() {
                     total = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
                     var elem = document.getElementById('nav').clientHeight;
@@ -162,21 +144,6 @@
                         $('#pageTitle').css('color','#fff');
                     }
                 }
-                //function nameCalling() {
-                //    var count = 0;
-                //    var names = [
-                //        'UX/UI developer',
-                //        'retired college radio DJ',
-                //        'ballroom dancer'
-                //    ];
-                //    var ticker = $('#ticker');
-                //    setInterval(callName, 3000);
-                //    function callName() {
-                //        ticker.text(names[count]);
-                //        count++;
-                //        if(count >= names.length) { count = 0; }
-                //    }
-                //}
                 // Handles animated transition when navigation link is clicked
                 function scrollTo(ev) {
                     ev.preventDefault();
@@ -191,16 +158,6 @@
                         }, 500);
                     }
                 }
-                //function getHype() {
-                //    $.getJSON('http://hypem.com/playlist/loved/nklein1/json/1/data.js', function(data) {
-                //        var items = [];
-                //        $.each(data, function(key, val) {
-                //            items.push('<li class="hype pad-sm"><a href="http://hypem.com/track/' + val.mediaid + '">' + val.artist + ' - ' + val.title + '</a></li>');
-                //        });
-                //        items = items.slice(0, 3);
-                //        $('#hype').append(items.join(' '));
-                //    });
-                //}
             });
         </script>
     </body>

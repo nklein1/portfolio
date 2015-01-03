@@ -28,6 +28,11 @@ body {
   height: 100%;
   top: 0px;
   bottom: 0px;
+  z-index: -700;
+}
+
+#pageTitle {
+  z-index: -500;
 }
 
 .second, .third {

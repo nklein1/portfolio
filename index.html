@@ -77,7 +77,7 @@
                         <a href="http://validator.w3.org/check/referer" target="_blank">HTML 5</a> and 
                         <a href="http://jigsaw.w3.org/css-validator/check/referer?profile=css3" target="_blank">CSS 3</a> standards.
                         The typeface used is <a href="http://google.com/webfonts/specimen/Open+Sans" target="_blank">Open Sans</a>.</p>
-                        <p class="profile dark left">All photos were taken by me. The first photo is of Smith Cove in Gloucester, Massachusetts, 
+                        <p class="profile dark left">All photos were taken by me. The lead photo is of Smith Cove in Gloucester, Massachusetts, 
                         and is intended as a nod to <a href="http://media.artgallery.yale.edu/adams/landing.php" target="_blank">Robert Adams</a>. 
                         <span class="desktop">The second photo was taken from a friend's rooftop in Charlestown.</span></p>
                         <p class="profile dark left">The code for this website is freely available on 
@@ -122,7 +122,7 @@
                 function defineOffset() {
                     total = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
                     var elem = document.getElementById('nav').clientHeight;
-                    navOffset = total-elem;
+                    navOffset = total-elem-15;
                 }
                 function fixHeader() {
                     if (window.scrollY >= navOffset) {

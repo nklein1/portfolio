@@ -167,21 +167,21 @@ hr {
   padding: 0em;
 }
 
-.profile a:link {
+p a:link {
   font-family: inherit;
   text-decoration: none;
 }
 
-.profile a:visited {
+p a:visited {
   text-decoration: none;
 }
 
-.profile a:active {
+p a:active {
   color: #666;
   text-decoration: none;
 }
 
-.profile a:hover {
+p a:hover {
   color: #ccc;
 }
 
@@ -212,7 +212,7 @@ hr {
   margin: 0em 0em 0.5em 0em;
 }
 
-.profile {
+p {
   font-family: 'Open Sans', sans-serif;
   color: #000;
   font-size: 1em;
@@ -252,7 +252,7 @@ hr {
     width: 90%;
   }
 
-  .profile {
+  p {
     font-size: 0.9em;
   }
 }
@@ -280,7 +280,7 @@ hr {
     padding: 1em 0 1em 0;
   }
 
-  .profile {
+  p {
     font-size: 1em;
   }
 }

@@ -39,11 +39,6 @@ body {
   background: rgba(0,0,0,0.75);
 }
 
-.white {
-  background: #fff;
-  padding: 35px 0;
-}
-
 .first, .second, .third {
 /* iOS Fix */
   background-position: center;
@@ -87,24 +82,6 @@ body {
   position: relative;
   vertical-align: middle;
   text-align: center;
-}
-
-/* CENTER LOGO IMAGE */
-.logo {
-  top: 100px;
-  width: 100%;
-  text-align: center;
-  margin: 0 auto;
-}
-
-.helper {
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-}
-
-.logo img {
-  vertical-align: middle;
 }
 
 .scroll {
@@ -152,10 +129,6 @@ body {
   line-height: 35px;
 }
 
-.xs {
-  display: none;
-}
-
 #nav ul li a {
   text-decoration: none;
   color: #000;
@@ -166,6 +139,11 @@ body {
 
 #nav ul li a:hover {
   text-decoration: underline;
+}
+
+#nav ul li a:active {
+  color: #00b95f;
+  text-decoration: none;
 }
 
 .half {
@@ -184,58 +162,9 @@ body {
   padding: 1em;
 }
 
-.stretch-nav {
-  display: inline-block;
-  font-size: 1px;
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
-}
-
 hr {
   margin: 0.1em 0em 0.25em 0em;
   padding: 0em;
-}
-
-.logo:link {
-  color: #fff;
-  font-family: inherit;
-  text-decoration: none;
-}
-
-.logo:visited {
-  color: #fff;
-  text-decoration: none;
-}
-
-.logo:active {
-  color: #00b95f;
-  text-decoration: none;
-}
-
-.logo:hover {
-  color: #00b95f;
-  text-shadow: 1px 1px #666;
-}
-
-.nav:link {
-  color: #fff;
-  font-family: inherit;
-  text-decoration: none;
-}
-
-.nav:visited {
-  color: #fff;
-  text-decoration: none;
-}
-
-.nav:active {
-  color: #00b95f;
-  text-decoration: none;
-}
-
-.nav:hover {
-  color: #00b95f;
 }
 
 .profile a:link {
@@ -254,34 +183,6 @@ hr {
 
 .profile a:hover {
   color: #ccc;
-}
-
-.no-desktop {
-  display: none;
-}
-
-.no-mobile {
-  display: inline-block;
-}
-
-/* TEXT */
-.logo {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 3em;
-  padding: 0em 0.25em 0em 0.25em;
-  color: #00b95f;
-  vertical-align: middle;
-  display: inline-block;
-}
-
-.item {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 2em;
-  margin: 0em;
-  padding: 0em 0.5em 0em 0.5em;
-  vertical-align: middle;
-  color: #fff;
-  display: inline-block;
 }
 
 .heading {
@@ -318,27 +219,6 @@ hr {
   margin: 0em 0em 1em 0em;
 }
 
-li.profile, ul.profile {
-  list-style: none;
-  text-align: left;
-}
-
-.pad-sm {
-  margin: 0em 0em 0.5em 0em;
-}
-
-.footer a:link {
-  color: #353535;
-}
-
-.footer a:visited {
-  color: #353535;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
 .dark a:link, .light a:link {
   color: #00b95f;
 }
@@ -355,23 +235,8 @@ li.profile, ul.profile {
   color: #fff;
 }
 
-.footer, .dark {
+.dark {
   color: #000;
-}
-
-.iLink:hover {
-  color: #00b95f;
-  cursor: pointer;
-}
-
-.links a:link {
-  color: #000;
-  text-decoration: underline;
-}
-
-.links a:visited {
-  color: #000;
-  text-decoration: underline;
 }
 
 .left {
@@ -382,31 +247,11 @@ li.profile, ul.profile {
   text-align: right !important;
 }
 
-.portrait {
-  display: inline-block;
-}
-
 @media screen and (max-width: 1200px) {
-  .portrait {
-    display: inline-block;
-  }
-
   .container {
     width: 90%;
   }
 
-  .logo {
-    font-size: 1.5em;
-    vertical-align: middle;
-  }
-
-  .item {
-    font-size: 1.2em;
-    vertical-align: middle;
-  }
-  /* .subslide {
-    padding: 0 0;
-  } */
   .profile {
     font-size: 0.9em;
   }
@@ -416,10 +261,6 @@ li.profile, ul.profile {
 
   .desktop { display: none; }
   .mobile { display: block; }
-  
-  .portrait {
-    display: inline-block;
-  }
 
   .title {
     font-size: 2em;
@@ -453,13 +294,6 @@ li.profile, ul.profile {
     background: #000;
   }
 
-  .links {
-    float: none;
-    display: block;
-    margin: 0.4em 0em 0.4em 0em;
-    color: #fff;
-  }
-
   .subslide {
     padding: 0;
   }
@@ -476,37 +310,12 @@ li.profile, ul.profile {
 }
 
 @media screen and (max-width: 500px) {
-  .portrait {
-    display: none;
-  }
-
-  .logo {
-    padding: 0em 0.2em 0em 0.2em;
-  }
-
-  .item {
-    padding: 0em 0.2em 0em 0.2em;
-  }
-
   .slide {
     padding: 0;
   }
 
-  #nav  ul li a {
+  #nav ul li a {
     padding: 0 0.5em 0 0.5em;
     letter-spacing: 0px;
-  }
-
-  .xs {
-    z-index: 110;
-    top: 75%;
-    position: absolute;
-    color: #00b95f !important;
-    display: inline-block;
-    margin: 0;
-    width: 100%;
-    text-align: center;
-    line-height: 35px;
-    vertical-align: middle;
   }
 }

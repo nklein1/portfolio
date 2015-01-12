@@ -84,6 +84,12 @@ body {
   text-align: center;
 }
 
+.logo {
+  display: inline-block;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1.5em;
+}
+
 .scroll {
   z-index: 500;
 }

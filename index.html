@@ -107,66 +107,105 @@
 
           //Variables
           var timer;
+          var totalY;             // Height of entire document
           var navOffset;
-          var navElem = $('#nav');
-          var total = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-          //Events
-          $('#nav li a.scroll').on('click', scrollTo);
-          $(document).on('touchmove', fadeTitle);
-          $(document).on('touchmove', fixHeader);
-          $(document).on('scroll', fadeTitle);
-          $(document).on('scroll', fixHeader);
-          $(window).resize(function() {
-            clearTimeout(timer);
-            timer = setTimeout(defineOffset, 100);
-          });
+          // Cached jQuery selectors
+          $document = $(document);
+          $window = $(window);
+          $pageTitle = $('#pageTitle');
+          $nav = $('#nav');
+          $htmlBody = $('html, body');
+          $navScroll = $('#nav .scroll');
 
           //Functions
           function defineOffset() {
-            total = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            var elem = document.getElementById('nav').clientHeight;
-            navOffset = total-elem-15;
+            totalY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            navOffset = totalY - $nav.innerHeight() - 15;
           }
+
           function fixHeader() {
-            if (window.scrollY >= navOffset) {
-              navElem.attr('class', 'fixed');
-            } else {
-              navElem.attr('class', 'unfixed');
-            }
+            if (window.scrollY >= navOffset)
+              $nav.attr('class', 'fixed');
+            else
+              $nav.attr('class', 'unfixed');
           }
+
           function fadeTitle() {
-            var currpos = $(window).scrollTop();
-            if (currpos < total/2.6) {
-              $('#pageTitle').css('color','#000');
-            } else if (currpos < total/2.5) {
-              $('#pageTitle').css('color','#aaa');
-            } else if (currpos < total/2.4) {
-              $('#pageTitle').css('color','#bbb');
-            } else if (currpos < total/2.3) {
-              $('#pageTitle').css('color','#ccc');
-            } else if (currpos < total/2.2) {
-              $('#pageTitle').css('color','#ddd');
-            } else if (currpos < total/2.1) {
-              $('#pageTitle').css('color','#eee');
-            } else if (currpos >= total/2) {
-              $('#pageTitle').css('color','#fff');
-            }
+            var currpos = $window.scrollTop();
+            if (currpos < totalY / 2.6)
+              $pageTitle.css('color','#000');
+            else if (currpos < totalY / 2.5)
+              $pageTitle.css('color','#aaa');
+            else if (currpos < totalY / 2.4)
+              $pageTitle.css('color','#bbb');
+            else if (currpos < totalY / 2.3)
+              $pageTitle.css('color','#ccc');
+            else if (currpos < totalY / 2.2)
+              $pageTitle.css('color','#ddd');
+            else if (currpos < totalY / 2.1)
+              $pageTitle.css('color','#eee');
+            else if (currpos >= totalY / 2)
+              $pageTitle.css('color','#fff');
           }
+
+          // Uses scroll position to highlight Nav link for visible section
+          function colorHeader() {
+            var currPos = $window.scrollTop();
+            var divTwoY = $divTwo.offset().top;
+            // var divThreeY = $divThree.offset().top;
+            var divThreeY = $divThree.offset().top -1;
+            var divFourH = $divFour.outerHeight();
+
+            if (currPos < divTwoY) {
+              if (!prevPos || prevPos >= divTwoY) {
+                $scroll.removeClass('activeNav');
+                $navOne.addClass('activeNav');
+              }
+            } else if (currPos >= divTwoY && currPos < divThreeY) {
+              if (prevPos < divTwoY || prevPos >= divThreeY) {
+                $scroll.removeClass('activeNav');
+                $navTwo.addClass('activeNav');
+              }
+            } else if (currPos >= divThreeY && currPos < divThreeY + divFourH) {
+              if (prevPos < divThreeY || prevPos >= divThreeY + divFourH) {
+                $scroll.removeClass('activeNav');
+                $navThree.addClass('activeNav');
+              }
+            } else if (currPos >= divThreeY + divFourH) {
+              if (prevPos < divThreeY + divFourH) {
+                $scroll.removeClass('activeNav');
+                $navFour.addClass('activeNav');
+              }
+            }
+            prevPos = currPos;
+          }
+
           // Handles animated transition when navigation link is clicked
           function scrollTo(ev) {
             ev.preventDefault();
             var link = $(this).attr('href');
             if (typeof window.orientation === 'undefined') {
-              $('html, body').animate({
-                scrollTop: $(link).offset().top - navElem.outerHeight()
+              $htmlBody.animate({
+                scrollTop: $(link).offset().top - $nav.outerHeight()
               }, 500);
             } else {
-              $('html, body').animate({
+              $htmlBody.animate({
                 scrollTop: $(link).offset().top
               }, 500);
             }
           }
+
+          //Events
+          $navScroll.on('click', scrollTo);
+          $document.on('touchmove', fadeTitle);
+          $document.on('touchmove', fixHeader);
+          $document.on('scroll', fadeTitle);
+          $document.on('scroll', fixHeader);
+          $window.resize(function() {
+            clearTimeout(timer);
+            timer = setTimeout(defineOffset, 100);
+          });
 
           defineOffset();
       });

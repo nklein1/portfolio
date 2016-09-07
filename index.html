@@ -33,21 +33,21 @@
   <body>
     <div id="area" class="base">
       <div id="nav" class="unfixed">
-        <ul class="lynx">
-          <li><a href="#home" class="scroll logo">NK</a></li>
-          <li><a href="#home" class="scroll desktop">Home</a></li>
-          <li><a href="#about" class="scroll">About</a></li>
-          <li><a href="#site" class="scroll">This Site</a></li>
-          <li><a href="#connect" class="scroll">Connect</a></li>
+        <ul id="lynx">
+          <li><a href="#first" id="navOne" class="scroll logo">NK</a></li>
+          <li><a href="#first" class="scroll desktop">Home</a></li>
+          <li><a href="#second" id="navTwo" class="scroll">Story</a></li>
+          <li><a href="#third" id="navThree" class="scroll">Site</a></li>
+          <li><a href="#fourth" id="navFour" class="scroll">Connect</a></li>
         </ul>
       </div>
-      <div id="home" class="first branding">
+      <div id="first" class="branding">
         <p id="pageTitle" class="heading cntr">
           Nick Klein is a
           <span id="ticker">UX/UI developer, among other things</span>
         </p>
       </div>
-      <div id="about" class="second slide">
+      <div id="second" class="slide">
         <div class="container">
           <div class="half">
             <p class="title light left">At work...</p>
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div id="site" class="third slide">
+      <div id="third" class="slide">
         <div class="container">
           <div class="half">
             <p class="title dark left">I design &amp; build things...</p>
@@ -91,7 +91,7 @@
           </div>
         </div>
       </div>
-      <div id="connect" class="subslide fourth">
+      <div id="fourth" class="subslide">
         <div class="container">
           <p class="light">
             You can send me an <a href="mailto:nklein1@gmail.com" title="Primary Email" target="_blank">email</a>, or connect with me on
@@ -105,30 +105,45 @@
     <script>
       $(document).ready(function() {
 
-          //Variables
+          // Variables
           var timer;
           var totalY;             // Height of entire document
-          var navOffset;
+          var navOffset;          // Viewport height, minus navbar height
+          var prevPos;            // Previous scroll position
 
           // Cached jQuery selectors
           $document = $(document);
           $window = $(window);
+          $container = $('.container');
           $pageTitle = $('#pageTitle');
           $nav = $('#nav');
+          $lynx = $('#lynx');
+          $navScroll = $('#lynx .scroll');
+          $navOne = $('#navOne');
+          $navTwo = $('#navTwo');
+          $navThree = $('#navThree');
+          $navFour = $('#navFour');
+          $divOne = $('#first');
+          $divTwo = $('#second');
+          $divThree = $('#third');
+          $divFour = $('#fourth');
+          $scroll = $('.scroll');
           $htmlBody = $('html, body');
-          $navScroll = $('#nav .scroll');
 
-          //Functions
+          // Functions
           function defineOffset() {
             totalY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            navOffset = totalY - $nav.innerHeight() - 15;
+            navOffset = totalY - $lynx.outerHeight();
           }
 
           function fixHeader() {
-            if (window.scrollY >= navOffset)
-              $nav.attr('class', 'fixed');
-            else
+            if (window.scrollY >= navOffset) {
+              if (!prevPos || prevPos < navOffset) {
+                $nav.attr('class', 'fixed');
+              }
+            } else if (!prevPos || prevPos >= navOffset) {
               $nav.attr('class', 'unfixed');
+            }
           }
 
           function fadeTitle() {
@@ -153,8 +168,7 @@
           function colorHeader() {
             var currPos = $window.scrollTop();
             var divTwoY = $divTwo.offset().top;
-            // var divThreeY = $divThree.offset().top;
-            var divThreeY = $divThree.offset().top -1;
+            var divThreeY = $divThree.offset().top;
             var divFourH = $divFour.outerHeight();
 
             if (currPos < divTwoY) {
@@ -163,17 +177,17 @@
                 $navOne.addClass('activeNav');
               }
             } else if (currPos >= divTwoY && currPos < divThreeY) {
-              if (prevPos < divTwoY || prevPos >= divThreeY) {
+              if (!prevPos || prevPos < divTwoY || prevPos >= divThreeY) {
                 $scroll.removeClass('activeNav');
                 $navTwo.addClass('activeNav');
               }
             } else if (currPos >= divThreeY && currPos < divThreeY + divFourH) {
-              if (prevPos < divThreeY || prevPos >= divThreeY + divFourH) {
+              if (!prevPos || prevPos < divThreeY || prevPos >= divThreeY + divFourH) {
                 $scroll.removeClass('activeNav');
                 $navThree.addClass('activeNav');
               }
             } else if (currPos >= divThreeY + divFourH) {
-              if (prevPos < divThreeY + divFourH) {
+              if (!prevPos || prevPos < divThreeY + divFourH) {
                 $scroll.removeClass('activeNav');
                 $navFour.addClass('activeNav');
               }
@@ -181,33 +195,35 @@
             prevPos = currPos;
           }
 
+          function scrollCallbacks() {
+            var currPos = $window.scrollTop();
+            if (currPos < totalY)
+              fadeTitle();
+            fixHeader();
+            colorHeader();
+          }
+
           // Handles animated transition when navigation link is clicked
           function scrollTo(ev) {
             ev.preventDefault();
             var link = $(this).attr('href');
-            if (typeof window.orientation === 'undefined') {
-              $htmlBody.animate({
-                scrollTop: $(link).offset().top - $nav.outerHeight()
-              }, 500);
-            } else {
-              $htmlBody.animate({
-                scrollTop: $(link).offset().top
-              }, 500);
-            }
+            $htmlBody.animate({
+              scrollTop: $(link).offset().top
+            }, 500);
+            colorHeader();
           }
 
-          //Events
+          // Events
           $navScroll.on('click', scrollTo);
-          $document.on('touchmove', fadeTitle);
-          $document.on('touchmove', fixHeader);
-          $document.on('scroll', fadeTitle);
-          $document.on('scroll', fixHeader);
+          $document.on('touchmove', scrollCallbacks);
+          $document.on('scroll', scrollCallbacks);
           $window.resize(function() {
             clearTimeout(timer);
             timer = setTimeout(defineOffset, 100);
           });
 
           defineOffset();
+
       });
     </script>
   </body>

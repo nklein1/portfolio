@@ -99,6 +99,12 @@ body {
 
 .scroll {
   z-index: 500;
+  -webkit-transition: 0.25s linear all;
+  transition: 0.25s linear all;
+}
+
+.activeNav {
+  color: #00b95f !important;
 }
 
 #nav.fixed {
@@ -199,10 +205,6 @@ a:hover {
 
 .dark {
   color: #000;
-}
-
-.activeNav {
-  color: #00b95f !important;
 }
 
 .heading {

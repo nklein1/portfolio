@@ -85,8 +85,8 @@
             <p class="dark left">All photos were taken by me. The lead photo is of Smith Cove in Gloucester, Massachusetts,
             and is intended as a nod to <a href="http://media.artgallery.yale.edu/adams/landing.php" target="_blank">Robert Adams</a>.
             <span class="desktop">The second photo was taken from a friend's rooftop in Charlestown.</span></p>
-            <p class="dark left">The code for this website is freely available on
-            <a href="https://github.com/nklein1/portfolio" target="_blank">Github</a>, go check it out! </p>
+            <p class="dark left">This website is open-source, feel free to check out the code on
+            <a href="https://github.com/nklein1/portfolio" target="_blank">Github</a>.</p>
             <p class="dark left">As for my resume, you can find that <a href="docs/nklein_resume.pdf" target="_blank">here</a> (PDF)</p>
           </div>
         </div>
@@ -131,13 +131,22 @@
           var navOffset;                    // Viewport height, minus navbar height
           var currPos = window.pageYOffset; // Current scroll position
           var prevPos;                      // Previous scroll position
+          var divTwoY;                      // Element distance from top of document
+          var divThreeY;                    // Element distance from top of document
+          var divFourH;                     // Element height
 
           // Functions
+
+          // Determine viewport and other sizing
           function defineOffset() {
             totalY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
             navOffset = totalY - $lynx.outerHeight();
+            divTwoY = $divTwo.offset().top;
+            divThreeY = $divThree.offset().top;
+            divFourH = $divFour.outerHeight();
           }
 
+          // Fix/unfix navigation bar
           function fixHeader() {
             if (currPos >= navOffset) {
               if (!prevPos || prevPos < navOffset) {
@@ -148,6 +157,7 @@
             }
           }
 
+          // Fade title from black to white based on scroll position
           function fadeTitle() {
             if (currPos < totalY / 2.6)
               $pageTitle.css('color','#000');
@@ -167,10 +177,6 @@
 
           // Uses scroll position to highlight Nav link for visible section
           function colorHeader() {
-            var divTwoY = $divTwo.offset().top;
-            var divThreeY = $divThree.offset().top;
-            var divFourH = $divFour.outerHeight();
-
             if (currPos < divTwoY) {
               if (!prevPos || prevPos >= divTwoY) {
                 $scroll.removeClass('activeNav');
@@ -192,7 +198,6 @@
                 $navFour.addClass('activeNav');
               }
             }
-            prevPos = currPos;
           }
 
           function scrollCallbacks() {
@@ -201,9 +206,10 @@
               fadeTitle();
             fixHeader();
             colorHeader();
+            prevPos = currPos;
           }
 
-          // Handles animated transition when navigation link is clicked
+          // Handles animated scrolling transition when navigation link is clicked
           function scrollTo(ev) {
             ev.preventDefault();
             var link = $(this).attr('href');
@@ -211,6 +217,8 @@
               scrollTop: $(link).offset().top
             }, 500);
           }
+
+          defineOffset();
 
           // Events
           $navScroll.on('click', scrollTo);
@@ -220,9 +228,6 @@
             clearTimeout(timer);
             timer = setTimeout(defineOffset, 100);
           });
-
-          defineOffset();
-          scrollCallbacks();
 
       });
     </script>

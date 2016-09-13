@@ -202,8 +202,7 @@ p {
 }
 
 a:link, a:visited {
-  // color: #30E09F;
-  // color: #90A399;
+  /* Previous colors I've tried: #30E09F & #90A399 */
   color: #00b95f;
   text-decoration: none;
 }

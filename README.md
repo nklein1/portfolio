@@ -1,4 +1,4 @@
 portfolio
 =========
 
-Nick Klein's constantly-evolving personal online portfolio.
+Nick Klein's constantly-evolving personal portfolio.

@@ -102,28 +102,24 @@
         </div>
       </div>
     </div>
+
+    <div id="currPos" style="position:fixed; top:30px; left:5px;"></div>
+    <div id="totalY" style="position:fixed; top:30px; right:5px;"></div>
+
+
     <script src="modernizr.js" type="text/javascript"></script>
     <script>
       $(document).ready(function() {
 
-          // Cached jQuery selectors
-          $document = $(document);
-          $window = $(window);
-          $container = $('.container');
-          $pageTitle = $('#pageTitle');
-          $nav = $('#nav');
-          $lynx = $('#lynx');
-          $navScroll = $('#lynx .scroll');
-          $navOne = $('#navOne');
-          $navTwo = $('#navTwo');
-          $navThree = $('#navThree');
-          $navFour = $('#navFour');
-          $divOne = $('#first');
-          $divTwo = $('#second');
-          $divThree = $('#third');
-          $divFour = $('#fourth');
-          $scroll = $('.scroll');
-          $htmlBody = $('html, body');
+          // Hey there! Welcome to the fun stuff
+
+          // Just as a note, there are some minor cosmetic wrinkles in the mobile experience when
+          // the mobile browser's URL bar is hidden/shown when the user scrolls up/down. Since most
+          // mobile browsers I've tested do not include the URL bar height in the 'window.outerHeight'
+          // property, my options are limited in determining the full height of the viewport when the
+          // URL bar is hidden. Relevant browser bug reports are below:
+          // Firefox for Android: https://bugzilla.mozilla.org/show_bug.cgi?id=1064982
+          // Chrome for Android: https://bugs.chromium.org/p/chromium/issues/detail?id=455911
 
           // Variables
           var timer;
@@ -140,14 +136,31 @@
           // Determine viewport and other sizing
           function defineOffset() {
             totalY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            navOffset = totalY - $lynx.outerHeight();
             divTwoY = $divTwo.offset().top;
             divThreeY = $divThree.offset().top;
             divFourH = $divFour.outerHeight();
           }
 
+          // Determine viewport and other sizing
+          function defineNav() {
+            totalY = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            // Extra pixel is added to avoid chrome mobile bug where navbar would disappear on certain scrollTo() calls
+            navOffset = totalY - ($lynx.outerHeight()+1);
+          }
+
+          // Minor hack to prevent elements from jumping when URL bar is shown/hidden on mobile browsers
+          // Sets each pane's height to the largest of these two: viewport height or the height of it's contents
+          function defineSlideHeight() {
+            $divOne.css('height', Math.max(document.documentElement.clientHeight, $('#first').scrollHeight || 0));
+            $divTwo.css('height', Math.max(document.documentElement.clientHeight, $('#second .container').outerHeight() || 0));
+            $divThree.css('height', Math.max(document.documentElement.clientHeight, $('#third .container').outerHeight() || 0));
+            // Minor hack to prevent navbar from jumping when URL bar is shown/hidden on mobile browsers
+            $navUnfixed.css('top', document.documentElement.clientHeight + 'px');
+          }
+
           // Fix/unfix navigation bar
           function fixHeader() {
+            defineNav();
             if (currPos >= navOffset) {
               if (!prevPos || prevPos < navOffset) {
                 $nav.attr('class', 'fixed');
@@ -218,15 +231,45 @@
             }, 500);
           }
 
-          defineOffset();
+          function init() {
+            // Cache jQuery selectors
+            $currPos = $('#currPos');
+            $totalY = $('#totalY');
+
+            $document = $(document);
+            $window = $(window);
+            $container = $('.container');
+            $pageTitle = $('#pageTitle');
+            $nav = $('#nav');
+            $lynx = $('#lynx');
+            $navScroll = $('#lynx .scroll');
+            $navOne = $('#navOne');
+            $navTwo = $('#navTwo');
+            $navThree = $('#navThree');
+            $navFour = $('#navFour');
+            $divOne = $('#first');
+            $divTwo = $('#second');
+            $divThree = $('#third');
+            $divFour = $('#fourth');
+            $scroll = $('.scroll');
+            $htmlBody = $('html, body');
+            $body = $('body');
+            $navUnfixed = $('.unfixed');
+            $navFixed = $('#nav.fixed');
+
+            defineSlideHeight();
+            defineOffset();
+            defineNav();
+          }
+
+          init();
 
           // Events
           $navScroll.on('click', scrollTo);
-          $document.on('touchmove', scrollCallbacks);
           $document.on('scroll', scrollCallbacks);
           $window.resize(function() {
             clearTimeout(timer);
-            timer = setTimeout(defineOffset, 100);
+            timer = setTimeout(init, 200);
           });
 
       });

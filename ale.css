@@ -37,7 +37,7 @@ body {
 }
 
 #second { background: #000 url('img/bg.jpg') no-repeat fixed center bottom; }
-#third { background: #fff; }
+#third { background: #FFF; }
 #fourth { background: #000; }
 
 #first, #second, #third {
@@ -112,7 +112,7 @@ body {
 }
 
 .activeNav {
-  color: #00b95f !important;
+  color: #00B95F !important;
 }
 
 #nav.fixed {
@@ -142,7 +142,7 @@ body {
 }
 
 #nav ul {
-  background: none repeat scroll 0 0 #FFFFFF;
+  background: none repeat scroll 0 0 #FFF;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.7);
   list-style: none outside none;
   text-align: center;
@@ -165,11 +165,11 @@ body {
 }
 
 #nav ul li a:hover {
-  color: #00b95f !important;
+  color: #00B95F !important;
 }
 
 #nav ul li a:active {
-  color: #00b95f;
+  color: #00B95F;
   text-decoration: none;
 }
 
@@ -188,13 +188,18 @@ hr {
 p {
   font-family: 'Open Sans', sans-serif;
   color: #000;
-  font-size: 1em;
+  font-size: 1rem;
+  font-weight: 300;
   margin: 0em 0em 1em 0em;
+}
+
+strong {
+  font-weight: 500;
 }
 
 a:link, a:visited {
   /* Previous colors I've tried: #30E09F & #90A399 */
-  color: #00b95f;
+  color: #00B95F;
   text-decoration: none;
 }
 
@@ -229,7 +234,7 @@ a:hover {
   margin: 0em 0em 0.5em 0em;
 }
 
-.light { color: #fff; }
+.light { color: #FFF; }
 .dark { color: #000; }
 
 .left { text-align: left !important; }
@@ -269,7 +274,7 @@ a:hover {
 
 @media screen and (max-width: 900px) and (orientation: portrait) {
 
-  #third { background: #fff; }
+  #third { background: #FFF; }
 
   .container {
     width: 90%;
